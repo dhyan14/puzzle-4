@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetromino Puzzle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Tetromino Puzzle</h1>
+        <div class="game-info">
+            <div>T-Tetrominos Left: <span id="t-count">15</span></div>
+            <div>Square Tetromino Left: <span id="square-count">1</span></div>
+        </div>
+        <div class="game-container">
+            <div class="grid" id="grid"></div>
+            <div class="pieces">
+                <div class="piece t-piece" id="t-piece" draggable="true">T</div>
+                <div class="piece square-piece" id="square-piece" draggable="true">■</div>
+            </div>
+        </div>
+        <button id="rotate-btn">Rotate T-Piece</button>
+        <div class="control-buttons">
+            <button id="undo-btn" disabled>Undo</button>
+            <button id="redo-btn" disabled>Redo</button>
+            <button id="reset-btn">Reset Game</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
