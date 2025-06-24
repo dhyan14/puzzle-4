@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Board from '@/components/Board';
 import TetrominoSelector from '@/components/TetrominoSelector';
+import Puzzle2 from '@/components/Puzzle2';
 
 interface GameState {
   board: string[][];
@@ -16,6 +17,11 @@ export default function Home() {
   const [squareCount, setSquareCount] = useState(1);
   const [board, setBoard] = useState<string[][]>(Array(8).fill(null).map(() => Array(8).fill('')));
   const [rotation, setRotation] = useState(0);
+  
+  // Password protection for Puzzle 2
+  const [password, setPassword] = useState('');
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [showPasswordError, setShowPasswordError] = useState(false);
   
   // History management
   const [history, setHistory] = useState<GameState[]>([{
@@ -79,8 +85,14 @@ export default function Home() {
     setCurrentStep(0);
   };
 
-  const checkWin = () => {
-    return tCount === 0 && squareCount === 0 && !board.flat().includes('');
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === '1414') {
+      setIsUnlocked(true);
+      setShowPasswordError(false);
+    } else {
+      setShowPasswordError(true);
+    }
   };
 
   return (
@@ -145,6 +157,34 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {!isUnlocked && (
+          <div className="mt-8 pt-8 border-t-2 border-gray-200">
+            <h2 className="text-2xl font-bold text-center mb-4">Unlock Puzzle 2</h2>
+            <form onSubmit={handlePasswordSubmit} className="max-w-sm mx-auto">
+              <div className="flex gap-2">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  className="flex-1 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+                >
+                  Unlock
+                </button>
+              </div>
+              {showPasswordError && (
+                <p className="text-red-500 text-sm mt-2">Incorrect password. Please try again.</p>
+              )}
+            </form>
+          </div>
+        )}
+
+        <Puzzle2 isUnlocked={isUnlocked} />
       </div>
     </main>
   );
