@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Board from '@/components/Board';
 import TetrominoSelector from '@/components/TetrominoSelector';
 
@@ -84,26 +84,24 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-8">Tetromino Puzzle</h1>
-        <div className="flex flex-col md:flex-row gap-8 items-start">
-          <div className="flex-1">
-            <Board
-              board={board}
-              setBoard={(newBoard) => {
-                setBoard(newBoard);
-                saveToHistory(newBoard, tCount, squareCount);
-              }}
-              selectedPiece={selectedPiece}
-              rotation={rotation}
-              tCount={tCount}
-              setTCount={setTCount}
-              squareCount={squareCount}
-              setSquareCount={setSquareCount}
-              setSelectedPiece={setSelectedPiece}
-            />
-          </div>
+    <main className="min-h-screen bg-gray-100 py-4 px-4 md:py-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-2xl md:text-3xl font-bold text-center mb-4 md:mb-8">Tetromino Puzzle</h1>
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-start">
+          <Board
+            board={board}
+            setBoard={(newBoard) => {
+              setBoard(newBoard);
+              saveToHistory(newBoard, tCount, squareCount);
+            }}
+            selectedPiece={selectedPiece}
+            rotation={rotation}
+            tCount={tCount}
+            setTCount={setTCount}
+            squareCount={squareCount}
+            setSquareCount={setSquareCount}
+            setSelectedPiece={setSelectedPiece}
+          />
           <div className="w-full md:w-64 bg-white p-4 rounded-lg shadow">
             <TetrominoSelector
               selectedPiece={selectedPiece}
@@ -114,7 +112,7 @@ export default function Home() {
             <button
               onClick={handleRotate}
               disabled={!selectedPiece}
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded mt-4 disabled:bg-gray-300"
+              className="w-full bg-blue-500 text-white py-3 px-4 rounded mt-4 disabled:bg-gray-300"
             >
               Rotate ({rotation}°)
             </button>
@@ -122,26 +120,26 @@ export default function Home() {
               <button
                 onClick={handleUndo}
                 disabled={currentStep === 0}
-                className="flex-1 bg-orange-500 text-white py-2 px-4 rounded disabled:bg-gray-300"
+                className="flex-1 bg-orange-500 text-white py-3 px-4 rounded disabled:bg-gray-300"
               >
                 Undo
               </button>
               <button
                 onClick={handleRedo}
                 disabled={currentStep === history.length - 1}
-                className="flex-1 bg-green-500 text-white py-2 px-4 rounded disabled:bg-gray-300"
+                className="flex-1 bg-green-500 text-white py-3 px-4 rounded disabled:bg-gray-300"
               >
                 Redo
               </button>
             </div>
             <button
               onClick={resetGame}
-              className="w-full bg-red-500 text-white py-2 px-4 rounded mt-4"
+              className="w-full bg-red-500 text-white py-3 px-4 rounded mt-4"
             >
               Reset Game
             </button>
             <div className="mt-4">
-              <p>Remaining pieces:</p>
+              <p className="font-medium">Remaining pieces:</p>
               <p>T-Tetromino: {tCount}</p>
               <p>Square: {squareCount}</p>
             </div>

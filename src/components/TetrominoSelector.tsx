@@ -15,12 +15,12 @@ const TetrominoSelector: React.FC<TetrominoSelectorProps> = ({
   squareCount,
 }) => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <button
         onClick={() => setSelectedPiece(selectedPiece === 'T' ? null : 'T')}
         disabled={tCount === 0}
         className={classNames(
-          'w-full p-4 rounded transition-colors',
+          'w-full py-3 px-4 rounded transition-colors text-center font-medium',
           {
             'bg-purple-500 text-white': selectedPiece === 'T',
             'bg-gray-200 hover:bg-gray-300': selectedPiece !== 'T' && tCount > 0,
@@ -34,7 +34,7 @@ const TetrominoSelector: React.FC<TetrominoSelectorProps> = ({
         onClick={() => setSelectedPiece(selectedPiece === 'Square' ? null : 'Square')}
         disabled={squareCount === 0}
         className={classNames(
-          'w-full p-4 rounded transition-colors',
+          'w-full py-3 px-4 rounded transition-colors text-center font-medium',
           {
             'bg-yellow-500 text-white': selectedPiece === 'Square',
             'bg-gray-200 hover:bg-gray-300': selectedPiece !== 'Square' && squareCount > 0,

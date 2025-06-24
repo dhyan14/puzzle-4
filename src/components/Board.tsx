@@ -46,34 +46,28 @@ const Board: React.FC<BoardProps> = ({
 
   const getTPositions = (row: number, col: number, rotation: number): [number, number][] => {
     switch (rotation) {
-      case 0: // ▀▀▀
-              //  ▀
+      case 0:
         return [
           [row, col - 1],
           [row, col],
           [row, col + 1],
           [row + 1, col],
         ];
-      case 90: // ▀
-              // ▀▀
-              // ▀
+      case 90:
         return [
           [row - 1, col],
           [row, col],
           [row + 1, col],
           [row, col - 1],
         ];
-      case 180: //  ▀
-               // ▀▀▀
+      case 180:
         return [
           [row, col - 1],
           [row, col],
           [row, col + 1],
           [row - 1, col],
         ];
-      case 270: // ▀
-               // ▀▀
-               // ▀
+      case 270:
         return [
           [row - 1, col],
           [row, col],
@@ -109,24 +103,26 @@ const Board: React.FC<BoardProps> = ({
   };
 
   return (
-    <div className="grid grid-cols-8 gap-1 bg-gray-200 p-4 rounded-lg">
-      {board.map((row, rowIndex) => (
-        row.map((cell, colIndex) => (
-          <div
-            key={`${rowIndex}-${colIndex}`}
-            onClick={() => handleCellClick(rowIndex, colIndex)}
-            className={classNames(
-              'w-12 h-12 rounded cursor-pointer transition-colors',
-              {
-                'bg-purple-500': cell === 'T',
-                'bg-yellow-500': cell === 'S',
-                'bg-white hover:bg-gray-100': cell === '',
-                'hover:bg-opacity-75': canPlacePiece(rowIndex, colIndex),
-              }
-            )}
-          />
-        ))
-      ))}
+    <div className="w-full max-w-[500px] mx-auto">
+      <div className="grid grid-cols-8 gap-[2px] bg-black p-[2px] rounded-lg aspect-square">
+        {board.map((row, rowIndex) => (
+          row.map((cell, colIndex) => (
+            <div
+              key={`${rowIndex}-${colIndex}`}
+              onClick={() => handleCellClick(rowIndex, colIndex)}
+              className={classNames(
+                'aspect-square rounded-sm cursor-pointer transition-colors',
+                {
+                  'bg-purple-500': cell === 'T',
+                  'bg-yellow-500': cell === 'S',
+                  'bg-white hover:bg-gray-100': cell === '',
+                  'hover:bg-opacity-75': canPlacePiece(rowIndex, colIndex),
+                }
+              )}
+            />
+          ))
+        ))}
+      </div>
     </div>
   );
 };
