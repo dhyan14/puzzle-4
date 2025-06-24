@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-type TetrominoPiece = 'I' | 'T' | 'S' | 'L' | 'Square' | null;
+type TetrominoPieceType = 'I' | 'T' | 'S' | 'L' | 'Square';
+type SelectedPiece = TetrominoPieceType | null;
 
 interface Puzzle2Props {
   isUnlocked: boolean;
@@ -9,14 +10,14 @@ interface Puzzle2Props {
 
 interface GameState {
   board: string[][];
-  pieces: Record<TetrominoPiece, number>;
+  pieces: Record<TetrominoPieceType, number>;
 }
 
 const Puzzle2: React.FC<Puzzle2Props> = ({ isUnlocked }) => {
-  const [selectedPiece, setSelectedPiece] = React.useState<TetrominoPiece>(null);
+  const [selectedPiece, setSelectedPiece] = React.useState<SelectedPiece>(null);
   const [board, setBoard] = React.useState<string[][]>(Array(4).fill(null).map(() => Array(5).fill('')));
   const [rotation, setRotation] = React.useState(0);
-  const [pieces, setPieces] = React.useState<Record<TetrominoPiece, number>>({
+  const [pieces, setPieces] = React.useState<Record<TetrominoPieceType, number>>({
     'I': 1,
     'T': 1,
     'S': 1,
@@ -35,7 +36,7 @@ const Puzzle2: React.FC<Puzzle2Props> = ({ isUnlocked }) => {
     return null;
   }
 
-  const getPiecePositions = (row: number, col: number, piece: TetrominoPiece, rotation: number): [number, number][] => {
+  const getPiecePositions = (row: number, col: number, piece: TetrominoPieceType, rotation: number): [number, number][] => {
     switch (piece) {
       case 'I':
         switch (rotation) {
@@ -114,7 +115,7 @@ const Puzzle2: React.FC<Puzzle2Props> = ({ isUnlocked }) => {
     setSelectedPiece(null);
   };
 
-  const saveToHistory = (newBoard: string[][], newPieces: Record<TetrominoPiece, number>) => {
+  const saveToHistory = (newBoard: string[][], newPieces: Record<TetrominoPieceType, number>) => {
     const newHistory = history.slice(0, currentStep + 1);
     newHistory.push({ board: newBoard, pieces: newPieces });
     setHistory(newHistory);
@@ -186,7 +187,7 @@ const Puzzle2: React.FC<Puzzle2Props> = ({ isUnlocked }) => {
         </div>
         <div className="w-full md:w-64 bg-white p-4 rounded-lg shadow">
           <div className="space-y-3">
-            {(['I', 'T', 'S', 'L', 'Square'] as TetrominoPiece[]).map((piece) => (
+            {(['I', 'T', 'S', 'L', 'Square'] as TetrominoPieceType[]).map((piece) => (
               <button
                 key={piece}
                 onClick={() => setSelectedPiece(selectedPiece === piece ? null : piece)}
